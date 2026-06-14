@@ -90,10 +90,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **Panaah** - *Stay Safe, Find Shelter.*
 ```
 
----
-
-### 💡 چند نکته برای بهتر شدن ظاهر در گیت‌هاب:
-*   **فایل `.gitignore`:** اگر نداری، حتماً یک فایل به اسم `.gitignore` بساز و توش بنویس `node_modules/` و `__pycache__/` تا دیگه اشتباهی آپلود نشن.
-*   **فایل `LICENSE`:** اگر می‌خوای پروژه‌ات رسمی‌تر باشه، از توی خود گیت‌هاب (Add file -> Create new file) بنویس `LICENSE` و مدل MIT رو انتخاب کن.
-
-سوالی داشتی در خدمتم رییس! 🚀
