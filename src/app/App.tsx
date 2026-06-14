@@ -11,16 +11,6 @@ type TrackCategory = "music" | "podcast" | "meditation";
 type Track = { id: string; title: string; artist: string; duration: string; category: TrackCategory; color: string; img: string };
 type BreathPhase = "idle" | "inhale" | "hold" | "exhale";
 
-const AI_RESPONSES = [
-  "می‌فهمم که الان در شرایط سختی هستی. این که این احساس رو با من در میان گذاشتی، خودش نشونه‌ی شجاعته. بیشتر بگو، من اینجام.",
-  "احساساتت کاملاً طبیعی و قابل درکه. تو تنها نیستی در این مسیر.",
-  "این که الان اینجایی و کمک می‌خوای، نشونه‌ی قدرته نه ضعف. بیایید با هم یه قدم برداریم.",
-  "نفس عمیقی بکش. تو در امنیت هستی. بگو اول از کجا شروع کنیم؟",
-  "چه چیزی بیشتر از همه الان آزارت میده؟ می‌خوام واقعاً بفهمم.",
-  "گاهی فقط شنیده شدن کافیه. من اینجام و گوش میدم، بدون هیچ قضاوتی.",
-  "این احساس گذراست، حتی اگه الان اینطور به نظر نرسه. با هم از این عبور می‌کنیم.",
-  "ممنون که اینقدر صادقانه باهام صحبت کردی. این خودش خیلی مهمه.",
-];
 
 const TRACKS: Track[] = [
   { id: "1", title: "باران آرامش", artist: "صدای طبیعت", duration: "٤٥:٠٠", category: "meditation", color: "#3a82c8", img: "photo-1501630834273-4b5604d2ee31" },
@@ -54,10 +44,8 @@ export default function App() {
   const [activeSection, setActiveSection] = useState("home");
   const [darkMode, setDarkMode] = useState(false);
 
-  // Chat state
-  const [messages, setMessages] = useState<Message[]>([
-    { id: "1", role: "ai", content: "سلام، من اینجام تا کنارت باشم. هر چیزی که روی دلته می‌تونی بگی. چه چیزی الان ذهنت رو درگیر کرده؟", time: "الان" },
-  ]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+
   const [inputText, setInputText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -138,20 +126,76 @@ export default function App() {
     return () => clearInterval(t);
   }, []);
 
-  const sendMessage = () => {
-    if (!inputText.trim() || isTyping) return;
-    const now = new Date();
-    const time = `${now.getHours()}:${String(now.getMinutes()).padStart(2, "0")}`;
-    setMessages(prev => [...prev, { id: Date.now().toString(), role: "user", content: inputText, time }]);
-    setInputText("");
-    if (textareaRef.current) { textareaRef.current.style.height = "auto"; }
-    setIsTyping(true);
-    setTimeout(() => {
-      const reply = AI_RESPONSES[Math.floor(Math.random() * AI_RESPONSES.length)];
-      setMessages(prev => [...prev, { id: (Date.now() + 1).toString(), role: "ai", content: reply, time }]);
-      setIsTyping(false);
-    }, 1800 + Math.random() * 1000);
+const sendMessage = async () => {
+  const text = inputText.trim();
+  if (!text || isTyping) return;
+
+  const time = new Date().toLocaleTimeString("fa-IR", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  const userMessage: Message = {
+    id: Date.now().toString(),
+    role: "user",
+    content: text,
+    time,
   };
+
+  const updatedMessages = [...messages, userMessage];
+  setMessages(updatedMessages);
+  setInputText("");
+  setIsTyping(true);
+
+  try {
+    const res = await fetch("http://127.0.0.1:8000/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        messages: updatedMessages.map((m) => ({
+          role: m.role === "ai" ? "assistant" : m.role,
+          content: m.content,
+        })),
+      }),
+    });
+
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+
+    const data = await res.json();
+
+    const aiMessage: Message = {
+      id: (Date.now() + 1).toString(),
+      role: "ai",
+      content: data.reply || "پاسخی دریافت نشد.",
+      time: new Date().toLocaleTimeString("fa-IR", {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+    };
+
+    setMessages((prev) => [...prev, aiMessage]);
+  } catch (error) {
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: (Date.now() + 1).toString(),
+        role: "ai",
+        content: "خطا در ارتباط با سرور",
+        time: new Date().toLocaleTimeString("fa-IR", {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      },
+    ]);
+    console.error(error);
+  } finally {
+    setIsTyping(false);
+  }
+};
 
   const toggleTrack = (id: string) => setPlayingId(p => p === id ? null : id);
 
@@ -242,7 +286,7 @@ export default function App() {
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight text-foreground">
-            آرامش را
+            پناه، آرامش را
             <br />
             <span className="text-primary">پیدا کن</span>
           </h1>
@@ -270,7 +314,7 @@ export default function App() {
         {/* Feature pills */}
         <div className="relative z-10 mt-20 flex flex-wrap gap-3 justify-center">
           {[
-            { icon: MessageCircle, label: "چت روانشناسی هوشمند" },
+            { icon: MessageCircle, label: "پناه " },
             { icon: Headphones, label: "موسیقی و پادکست" },
             { icon: Wind, label: "تمرین تنفس" },
             { icon: Star, label: "تأییدیه‌های روزانه" },
