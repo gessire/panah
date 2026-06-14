@@ -3,7 +3,6 @@
 
   This is a code bundle for Mental Wellness Support Site. The original project is available at https://www.figma.com/design/7fHE59LW6NZE9jIMThVcLp/Mental-Wellness-Support-Site.
 
-```markdown
 # Panaah (پناه) 🏥🛡️
 
 **Panaah** is a specialized crisis-response platform designed to help affected people find safe shelters, emergency accommodation, and secure routes during disasters. Our mission is to provide real-time information and resources to ensure human safety in critical situations.
