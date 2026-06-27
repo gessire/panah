@@ -8,29 +8,90 @@ import {
 
 type Message = { id: string; role: "user" | "ai"; content: string; time: string };
 type TrackCategory = "music" | "podcast" | "meditation";
-type Track = { id: string; title: string; artist: string; duration: string; category: TrackCategory; color: string; img: string };
+type Track = { id: string; title: string; artist: string; duration: string; category: TrackCategory; color: string; img: string; audio: string };
 type BreathPhase = "idle" | "inhale" | "hold" | "exhale";
 
-const AI_RESPONSES = [
-  "می‌فهمم که الان در شرایط سختی هستی. این که این احساس رو با من در میان گذاشتی، خودش نشونه‌ی شجاعته. بیشتر بگو، من اینجام.",
-  "احساساتت کاملاً طبیعی و قابل درکه. تو تنها نیستی در این مسیر.",
-  "این که الان اینجایی و کمک می‌خوای، نشونه‌ی قدرته نه ضعف. بیایید با هم یه قدم برداریم.",
-  "نفس عمیقی بکش. تو در امنیت هستی. بگو اول از کجا شروع کنیم؟",
-  "چه چیزی بیشتر از همه الان آزارت میده؟ می‌خوام واقعاً بفهمم.",
-  "گاهی فقط شنیده شدن کافیه. من اینجام و گوش میدم، بدون هیچ قضاوتی.",
-  "این احساس گذراست، حتی اگه الان اینطور به نظر نرسه. با هم از این عبور می‌کنیم.",
-  "ممنون که اینقدر صادقانه باهام صحبت کردی. این خودش خیلی مهمه.",
-];
-
 const TRACKS: Track[] = [
-  { id: "1", title: "باران آرامش", artist: "صدای طبیعت", duration: "٤٥:٠٠", category: "meditation", color: "#3a82c8", img: "photo-1501630834273-4b5604d2ee31" },
-  { id: "2", title: "مدیتیشن شبانه", artist: "استودیو آرامش", duration: "٣٠:٠٠", category: "meditation", color: "#5b99d6", img: "photo-1518020382113-a7e8fc38eac9" },
-  { id: "3", title: "گفتگو درباره اضطراب", artist: "دکتر مریم احمدی", duration: "٥٢:١٨", category: "podcast", color: "#d4a820", img: "photo-1478737270239-2f02b77fc618" },
-  { id: "4", title: "موسیقی آرام برای خواب", artist: "کوارتت ماه", duration: "٥٨:٤٠", category: "music", color: "#4090c0", img: "photo-1511379938547-c1f69419868d" },
-  { id: "5", title: "تنفس آگاهانه", artist: "یوگا و ذهن‌آگاهی", duration: "٢٠:٠٠", category: "meditation", color: "#2878b8", img: "photo-1506905925346-21bda4d32df4" },
-  { id: "6", title: "چطور با غم کنار بیاییم", artist: "دکتر علی رضایی", duration: "٤٨:٣٠", category: "podcast", color: "#c8921a", img: "photo-1474631245212-32dc3c8310c6" },
-  { id: "7", title: "امواج دریا", artist: "طبیعت بی‌کران", duration: "١:٠٠:٠٠", category: "music", color: "#3888c4", img: "photo-1505118380757-91f5f5632de0" },
-  { id: "8", title: "ذهن‌آگاهی روزانه", artist: "مرکز رفاه ذهنی", duration: "١٥:٠٠", category: "podcast", color: "#b87e10", img: "photo-1500534314209-a25ddb2bd429" },
+  {
+    id: "1",
+    title: "باران آرامش",
+    artist: "صدای طبیعت",
+    duration: "01:00",
+    category: "meditation",
+    color: "#3a82c8",
+    img: "photo-1501630834273-4b5604d2ee31",
+    audio: "/audio/Sedaye.Baran(5).mp3",
+  },
+  {
+    id: "2",
+    title: "مدیتیشن شبانه",
+    artist: "استودیو آرامش",
+    duration: "30:51",
+    category: "meditation",
+    color: "#d4a820",
+    img: "photo-1518020382113-a7e8fc38eac9",
+    audio: "/audio/مدیتیشن عمیق رهایی از اضطراب و دلشوره.mp3",
+  },
+  {
+    id: "3",
+    title: "گفتگو درباره اضطراب",
+    artist: "وحید",
+    duration: "12:26",
+    category: "podcast",
+    color: "#d4a820",
+    img: "photo-1478737270239-2f02b77fc618",
+    audio: "/audio/Meditation-for-Stress-HUSHYAR.NET_.mp3",
+  },
+  {
+    id: "4",
+    title: "موسیقی آرام برای خواب",
+    artist: "کوارتت ماه",
+    duration: "2:25",
+    category: "music",
+    color: "#4090c0",
+    img: "photo-1511379938547-c1f69419868d",
+    audio: "/audio/Enya - Watermark (320).mp3",
+  },
+  {
+    id: "5",
+    title: "تنفس آگاهانه و یوگا",
+    artist: "یوگا و ذهن‌آگاهی",
+    duration: "18:00",
+    category: "meditation",
+    color: "#2878b8",
+    img: "photo-1506905925346-21bda4d32df4",
+    audio: "/audio/Yuga_ Deuter - Endless Horizon [SevilMusic].mp3",
+  },
+  {
+    id: "6",
+    title: "صدای دریا",
+    artist: "طبیعت",
+    duration: "1:57",
+    category: "podcast",
+    color: "#3a82c8",
+    img: "photo-1474631245212-32dc3c8310c6",
+    audio: "/audio/Sedaye Darya (1).mp3",
+  },
+  {
+    id: "7",
+    title: "باران با موسیقی",
+    artist: "طبیعت بی‌کران",
+    duration: "1:03:13",
+    category: "music",
+    color: "#3888c4",
+    img: "photo-1505118380757-91f5f5632de0",
+    audio: "/audio/Sedaye.Baran(22).mp3",
+  },
+  {
+    id: "8",
+    title: "یوگا و ذهن‌آگاهی روزانه",
+    artist: "مرکز رفاه ذهنی",
+    duration: "16:40",
+    category: "podcast",
+    color: "#3888c4",
+    img: "photo-1500534314209-a25ddb2bd429",
+    audio: "/audio/Yuga_ Warmer Sommerabend [SevilMusic].mp3",
+  },
 ];
 
 const AFFIRMATIONS = [
@@ -54,10 +115,8 @@ export default function App() {
   const [activeSection, setActiveSection] = useState("home");
   const [darkMode, setDarkMode] = useState(false);
 
-  // Chat state
-  const [messages, setMessages] = useState<Message[]>([
-    { id: "1", role: "ai", content: "سلام، من اینجام تا کنارت باشم. هر چیزی که روی دلته می‌تونی بگی. چه چیزی الان ذهنت رو درگیر کرده؟", time: "الان" },
-  ]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]);
+
   const [inputText, setInputText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -69,6 +128,7 @@ export default function App() {
   const [activeCategory, setActiveCategory] = useState<"all" | TrackCategory>("all");
   const [volume, setVolume] = useState(75);
   const progressRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Breathing state
   const [breathPhase, setBreathPhase] = useState<BreathPhase>("idle");
@@ -86,9 +146,9 @@ export default function App() {
   }, [darkMode]);
 
   // Scroll chat to bottom
-  useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, isTyping]);
+  //useEffect(() => {
+   // messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+ // }, [messages, isTyping]);
 
   // Music progress
   useEffect(() => {
@@ -137,23 +197,108 @@ export default function App() {
     }, 7000);
     return () => clearInterval(t);
   }, []);
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.volume = volume / 100;
+    }
+  }, [volume]);
 
-  const sendMessage = () => {
-    if (!inputText.trim() || isTyping) return;
-    const now = new Date();
-    const time = `${now.getHours()}:${String(now.getMinutes()).padStart(2, "0")}`;
-    setMessages(prev => [...prev, { id: Date.now().toString(), role: "user", content: inputText, time }]);
-    setInputText("");
-    if (textareaRef.current) { textareaRef.current.style.height = "auto"; }
-    setIsTyping(true);
-    setTimeout(() => {
-      const reply = AI_RESPONSES[Math.floor(Math.random() * AI_RESPONSES.length)];
-      setMessages(prev => [...prev, { id: (Date.now() + 1).toString(), role: "ai", content: reply, time }]);
-      setIsTyping(false);
-    }, 1800 + Math.random() * 1000);
+const sendMessage = async () => {
+  const text = inputText.trim();
+  if (!text || isTyping) return;
+
+  const time = new Date().toLocaleTimeString("fa-IR", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  const userMessage: Message = {
+    id: Date.now().toString(),
+    role: "user",
+    content: text,
+    time,
   };
 
-  const toggleTrack = (id: string) => setPlayingId(p => p === id ? null : id);
+  const updatedMessages = [...messages, userMessage];
+  setMessages(updatedMessages);
+  setInputText("");
+  setIsTyping(true);
+
+  try {
+    const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:8000";
+    const res = await fetch(`${API_BASE}/chat`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        messages: updatedMessages.map((m) => ({
+          role: m.role === "ai" ? "assistant" : m.role,
+          content: m.content,
+        })),
+      }),
+    });
+
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+
+    const data = await res.json();
+
+    const aiMessage: Message = {
+      id: (Date.now() + 1).toString(),
+      role: "ai",
+      content: data.reply || "پاسخی دریافت نشد.",
+      time: new Date().toLocaleTimeString("fa-IR", {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+    };
+
+    setMessages((prev) => [...prev, aiMessage]);
+  } catch (error) {
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: (Date.now() + 1).toString(),
+        role: "ai",
+        content: "خطا در ارتباط با سرور",
+        time: new Date().toLocaleTimeString("fa-IR", {
+          hour: "2-digit",
+          minute: "2-digit",
+        }),
+      },
+    ]);
+    console.error(error);
+  } finally {
+    setIsTyping(false);
+  }
+};
+
+  const toggleTrack = (id: string) => {
+    const track = TRACKS.find(t => t.id === id);
+
+    if (!track) return;
+
+    if (!audioRef.current) {
+      audioRef.current = new Audio();
+      audioRef.current.preload = "auto";
+    }
+
+    if (playingId === id) {
+      audioRef.current.pause();
+      setPlayingId(null);
+    } else {
+      audioRef.current.src = track.audio;
+      audioRef.current.volume = volume / 100;
+
+      audioRef.current
+        .play()
+        .catch(err => console.error("Audio Error:", err));
+
+      setPlayingId(id);
+    }
+  };
 
   const filteredTracks = activeCategory === "all" ? TRACKS : TRACKS.filter(t => t.category === activeCategory);
   const currentTrack = TRACKS.find(t => t.id === playingId);
@@ -224,7 +369,7 @@ export default function App() {
       <section id="home" className="relative min-h-screen flex flex-col items-center justify-center text-center px-6 pt-16 overflow-hidden">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1920&h=1080&fit=crop&auto=format"
+            src="/img/blue-flower-background"
             alt="منظره آرام کوهستانی"
             className="w-full h-full object-cover opacity-20"
           />
@@ -242,7 +387,7 @@ export default function App() {
           </div>
 
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight text-foreground">
-            آرامش را
+            پناه، آرامش را
             <br />
             <span className="text-primary">پیدا کن</span>
           </h1>
@@ -270,7 +415,7 @@ export default function App() {
         {/* Feature pills */}
         <div className="relative z-10 mt-20 flex flex-wrap gap-3 justify-center">
           {[
-            { icon: MessageCircle, label: "چت روانشناسی هوشمند" },
+            { icon: MessageCircle, label: "پناه " },
             { icon: Headphones, label: "موسیقی و پادکست" },
             { icon: Wind, label: "تمرین تنفس" },
             { icon: Star, label: "تأییدیه‌های روزانه" },
@@ -438,7 +583,7 @@ export default function App() {
               موسیقی‌ها و پادکست‌هایی که به آرام شدن ذهن و کاهش اضطراب کمک می‌کنند.
             </p>
           </div>
-
+ش
           {/* Category filter */}
           <div className="flex gap-3 justify-center mb-10 flex-wrap">
             {(["all", "music", "meditation", "podcast"] as const).map(cat => (
