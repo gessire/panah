@@ -1,6 +1,6 @@
 # Panaah (پناه) 🏥🛡️
 
-**Panaah** is a full-stack crisis response platform designed to help people find safe shelters, emergency accommodations, and secure routes during natural disasters and emergency situations. The platform provides real-time access to shelter information, emergency resources, and AI-powered emotional support to improve safety and well-being during crises.
+**Panaah** is a full-stack crisis response platform designed to help people be calm, and secure routes during natural disasters and emergency situations. The platform provides real-time access to shelter information, emergency resources, and AI-powered emotional support to improve safety and well-being during crises.
 
 ---
 
