@@ -22,7 +22,7 @@ const TRACKS: Track[] = [
     duration: "01:00",
     category: "meditation",
     color: "#3a82c8",
-    img: "photo-1501630834273-4b5604d2ee31",
+    img: "/img/rain2.png",
     audio: "/audio/Sedaye.Baran(5).mp3",
   },
   {
@@ -32,7 +32,7 @@ const TRACKS: Track[] = [
     duration: "30:51",
     category: "meditation",
     color: "#d4a820",
-    img: "photo-1518020382113-a7e8fc38eac9",
+    img: "/img/yoga.jpg",
     audio: "/audio/مدیتیشن عمیق رهایی از اضطراب و دلشوره.mp3",
   },
   {
@@ -42,7 +42,7 @@ const TRACKS: Track[] = [
     duration: "12:26",
     category: "podcast",
     color: "#d4a820",
-    img: "photo-1478737270239-2f02b77fc618",
+    img: "/img/calm.jpg",
     audio: "/audio/Meditation-for-Stress-HUSHYAR.NET_.mp3",
   },
   {
@@ -52,7 +52,7 @@ const TRACKS: Track[] = [
     duration: "2:25",
     category: "music",
     color: "#4090c0",
-    img: "photo-1511379938547-c1f69419868d",
+    img: "/img/sleep.jpeg",
     audio: "/audio/Enya - Watermark (320).mp3",
   },
   {
@@ -62,7 +62,7 @@ const TRACKS: Track[] = [
     duration: "18:00",
     category: "meditation",
     color: "#2878b8",
-    img: "photo-1506905925346-21bda4d32df4",
+    img: "/img/breathing.jpg",
     audio: "/audio/Yuga_ Deuter - Endless Horizon [SevilMusic].mp3",
   },
   {
@@ -72,7 +72,7 @@ const TRACKS: Track[] = [
     duration: "1:57",
     category: "podcast",
     color: "#3a82c8",
-    img: "photo-1474631245212-32dc3c8310c6",
+    img: "/img/sea.jpg",
     audio: "/audio/Sedaye Darya (1).mp3",
   },
   {
@@ -82,7 +82,7 @@ const TRACKS: Track[] = [
     duration: "1:03:13",
     category: "music",
     color: "#3888c4",
-    img: "photo-1505118380757-91f5f5632de0",
+    img: "/img/rain.jpeg",
     audio: "/audio/Sedaye.Baran(22).mp3",
   },
   {
@@ -92,7 +92,7 @@ const TRACKS: Track[] = [
     duration: "16:40",
     category: "podcast",
     color: "#3888c4",
-    img: "photo-1500534314209-a25ddb2bd429",
+    img: "/img/yoga (2).jpg",
     audio: "/audio/Yuga_ Warmer Sommerabend [SevilMusic].mp3",
   },
 ];
