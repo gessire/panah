@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import OpenAI from "openai";
+import authRoutes from "./routes/authRoutes.js";
+import { notFound, errorHandler } from "./middleware/errorHandler.js";
 
 dotenv.config();
 
@@ -9,6 +11,9 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+// Auth (registration, login, session restore)
+app.use("/api/auth", authRoutes);
 
 const client = new OpenAI({
   apiKey: process.env.GAPGPT_API_KEY,
@@ -87,6 +92,10 @@ app.get("/health", (req, res) => {
   res.status(200).json({ status: "ok" });
 });
 
+// Keep these last: notFound catches unmatched routes, errorHandler
+// catches anything thrown/forwarded by the routes above (including auth).
+app.use(notFound);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 8000;
 

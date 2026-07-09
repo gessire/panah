@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { Link } from "react-router";
 import {
   Send, Play, Pause, SkipBack, SkipForward, Volume2,
   Heart, Headphones, MessageCircle, Wind, Star,
   Phone, ChevronDown, RefreshCw, Moon, Sun,
-  BookOpen, Shield, Music2,
+  BookOpen, Shield, Music2, User, LogOut,
 } from "lucide-react";
 import OpenAI from "openai";
+import { useAuth } from "./context/AuthContext";
 
 type Message = { id: string; role: "user" | "ai"; content: string; time: string };
 type TrackCategory = "music" | "podcast" | "meditation";
@@ -114,6 +116,7 @@ const TIPS = [
 ];
 
 export default function App() {
+  const { currentUser, isAuthenticated, logout } = useAuth();
   const [activeSection, setActiveSection] = useState("home");
   const [darkMode, setDarkMode] = useState(false);
 
@@ -365,6 +368,31 @@ const sendMessage = async () => {
             >
               کمک فوری
             </button>
+            {isAuthenticated ? (
+              <div className="flex items-center gap-2">
+                <Link
+                  to="/profile"
+                  className="w-9 h-9 rounded-xl bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+                  title={currentUser?.name}
+                >
+                  <User className="w-4 h-4" />
+                </Link>
+                <button
+                  onClick={logout}
+                  className="w-9 h-9 rounded-xl bg-secondary flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+                  title="خروج"
+                >
+                  <LogOut className="w-4 h-4" />
+                </button>
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                className="px-4 py-2 rounded-xl border border-border text-sm font-semibold hover:border-primary/40 transition-colors"
+              >
+                ورود
+              </Link>
+            )}
           </div>
         </div>
       </nav>
