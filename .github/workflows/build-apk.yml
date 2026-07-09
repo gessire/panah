@@ -1,4 +1,4 @@
-name: Build APK
+name: Build Panah APK
 
 on:
   workflow_dispatch:
@@ -12,35 +12,44 @@ jobs:
         working-directory: front
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
           cache-dependency-path: front/package-lock.json
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm ci
 
-      - name: Build Vite
+      - name: Create .env
+        run: |
+          echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env
+
+      - name: Build React
         run: npm run build
 
       - name: Sync Capacitor
         run: npx cap sync android
 
-      - uses: actions/setup-java@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '21'
 
+      - name: Make gradlew executable
+        run: chmod +x android/gradlew
+
       - name: Build APK
         working-directory: front/android
-        run: |
-          chmod +x gradlew
-          ./gradlew assembleDebug
+        run: ./gradlew assembleDebug
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
         with:
           name: Panah
           path: front/android/app/build/outputs/apk/debug/app-debug.apk
