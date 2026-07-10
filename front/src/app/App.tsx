@@ -27,7 +27,7 @@ const TRACKS: Track[] = [
   },
   {
     id: "2",
-    title: "مدیتیشن شبانه",
+    title: "مدیتیشن با صدای آب",
     artist: "استودیو آرامش",
     duration: "08:16",
     category: "meditation",
@@ -37,8 +37,8 @@ const TRACKS: Track[] = [
   },
   {
     id: "3",
-    title: "گفتگو درباره اضطراب",
-    artist: "وحید",
+    title: "غلبه بر ترس",
+    artist: "موفقیت",
     duration: "10:10",
     category: "podcast",
     color: "#d4a820",
