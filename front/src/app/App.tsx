@@ -23,7 +23,7 @@ const TRACKS: Track[] = [
     category: "meditation",
     color: "#3a82c8",
     img: "/img/rain2.png",
-    audio: "/audio/Sedaye.Baran(5).mp3",
+    audio: "/audio/SedayeBaran5.mp3",
   },
   {
     id: "2",
@@ -63,7 +63,7 @@ const TRACKS: Track[] = [
     category: "meditation",
     color: "#2878b8",
     img: "/img/breathing.jpg",
-    audio: "/audio/Yuga_ Deuter - Endless Horizon [SevilMusic].mp3",
+    audio: "/audio/YugaD.mp3",
   },
   {
     id: "6",
@@ -73,7 +73,7 @@ const TRACKS: Track[] = [
     category: "podcast",
     color: "#3a82c8",
     img: "/img/sea.jpg",
-    audio: "/audio/Sedaye Darya (1).mp3",
+    audio: "/audio/SedayeDarya.mp3",
   },
   {
     id: "7",
@@ -93,7 +93,7 @@ const TRACKS: Track[] = [
     category: "podcast",
     color: "#3888c4",
     img: "/img/yoga (2).jpg",
-    audio: "/audio/Yuga_ Warmer Sommerabend [SevilMusic].mp3",
+    audio: "/audio/YugaW.mp3",
   },
 ];
 
